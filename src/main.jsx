@@ -5,6 +5,7 @@ import "./index.scss";
 import RootLayout from "./Routes/RootLayout";
 import Shop from "./Routes/Shop";
 import Home from "./Routes/Home";
+import SignIn from "./Routes/Sign-in/Sign-in";
 
 // The Root Route
 const router = createBrowserRouter([
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: '/shop',
         element: <Shop />
+      },
+      {
+        path: '/sign-in',
+        element:<SignIn />
       }
     ]
   }

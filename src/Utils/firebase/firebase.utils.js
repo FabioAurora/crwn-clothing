@@ -1,3 +1,6 @@
+/* 1 -This utility file allows me to control the large majority of how my application interfaces with this external service. (in this case is firebase / fireStore).
+    2- Allows me to create the separation layer between my frontend and the services it relies on.
+*/
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -20,6 +23,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
+/* ***************************** */
+// Google provider setup
 const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
@@ -34,7 +39,7 @@ export const signInWithGooglePopup = () =>
 export const db = getFirestore();
 
 /* *************************** */
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
   if (!userAuth) return;
 
   const userDocRef = doc(db, "users", userAuth.uid);
@@ -46,7 +51,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 // TODO :
 // if user data does not exist
 // create / set the document with the data from userAuth in my collection
-if (!userSnapshot.exists()) {
+if (!userSnapshot.exists()) { 
   const { displayName, email } = userAuth;
   const createdAt = new Date();
 
@@ -54,7 +59,8 @@ if (!userSnapshot.exists()) {
     await setDoc(userDocRef, {
       displayName,
       email,
-      createdAt
+      createdAt,
+      ...additionalInformation,
     });
   } catch (error) {
     console.log('Error creating the user', error.message)
@@ -65,7 +71,7 @@ return userDocRef;
 };
 
 /* ***************************** */
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword =  async (email, password) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password)

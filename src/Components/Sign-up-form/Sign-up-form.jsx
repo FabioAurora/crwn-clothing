@@ -63,6 +63,7 @@ export default function SignUpForm() {
       <form action="#" onSubmit={handleSubmit}>
         <FormInput
           label="Display Name"
+          autoComplete='username'
           id='name'
           type="text"
           required
@@ -73,7 +74,7 @@ export default function SignUpForm() {
 
         <FormInput
           label="Email"
-          id='email'
+          autoComplete='on'
           type="email"
           required
           onChange={handleChange}
@@ -83,7 +84,7 @@ export default function SignUpForm() {
 
         <FormInput
           label="Password"
-          id='password'
+          autoComplete='new-password'
           type="password"
           required
           onChange={handleChange}
@@ -93,7 +94,7 @@ export default function SignUpForm() {
 
         <FormInput
           label="Confirm Password"
-          id='confirmPassword'
+          autoComplete='new-password'
           type="password"
           required
           onChange={handleChange}
@@ -101,7 +102,7 @@ export default function SignUpForm() {
           value={confirmPassword}
         />
 
-        <Button type='submit'>Sign Up</Button>
+        <Button  type='submit'>Create Account</Button>
       </form>
     </div>
   );

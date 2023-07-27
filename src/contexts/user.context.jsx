@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../Utils/firebase/firebase.utils";
 
 // creating context and putting the result in a variable
 // can pass an initial (default) value to the value prop to when we call createContext()
@@ -21,6 +22,16 @@ export const UserProvider = ({ children}) => {
     const [currentUser, setCurrentUser] = useState(null);
     // next I generate the value that will be passed into the provider value, this will be an object that passed the 2 values that are important
     const value = {currentUser, setCurrentUser};
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChangedListener((user) => {
+            if (user) {
+                createUserDocumentFromAuth(user);
+            }
+            setCurrentUser(user);
+        });
+        return unsubscribe;
+    }, [])
     // this provider will receive the value that will hold the actual contextual values
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }

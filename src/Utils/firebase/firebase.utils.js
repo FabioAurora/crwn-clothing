@@ -7,7 +7,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
 } from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
@@ -83,3 +85,12 @@ export const signInAuthUserWithEmailAndPassword =  async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password)
 }
+
+/* ****************************** */
+// Sign Out
+// can make this an async function because we want to return the promise of whatever signOut return back to us.
+export const signOutUser = async () => signOut(auth)
+
+/* ************************ */
+// Observer listener
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);

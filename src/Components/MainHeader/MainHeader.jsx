@@ -7,10 +7,13 @@ import CartDropdown from "../CartDropdown/CartDropdown";
 
 import { useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
+import { CartContext} from '../..//contexts/cart.context';
+
 import { signOutUser } from "../../Utils/firebase/firebase.utils";
 
 export default function MainHeader() {
   const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
 
   return (
     <>
@@ -33,7 +36,7 @@ export default function MainHeader() {
           )}
           <CartIcon />
         </div>
-        <CartDropdown />
+        {isCartOpen && <CartDropdown />}
       </div>
     </>
   );

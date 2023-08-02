@@ -6,6 +6,7 @@ import RootLayout from "./Routes/RootLayout";
 import Shop from "./Routes/Shop/Shop";
 import Home from "./Routes/Home";
 import Authentication from "./Routes/Authentication/Authentication";
+import Checkout from "./Routes/Checkout/Checkout";
 
 // The Root Route
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         path: "/auth",
         element: <Authentication />,
       },
+      {
+        path: "/checkout",
+        element: <Checkout />
+      }
     ],
   },
 ]);
